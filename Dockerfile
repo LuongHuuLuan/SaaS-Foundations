@@ -13,8 +13,8 @@ ENV PATH=/opt/venv/bin:$PATH
 RUN pip install --upgrade pip
 
 # Set Python-related enviroment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Install os dependencies for our mini vm
 RUN apt-get update && apt-get install -y \
@@ -35,10 +35,13 @@ RUN mkdir -p /code
 WORKDIR /code
 
 # Copy the requirements file into the container
-COPY requirements.txt /tmp/requirements
+COPY requirements.txt /tmp/requirements.txt
 
 # copy the project code into the container's working directory
 COPY ./src /code
+
+# Install the Python project requirements
+RUN pip install -r /tmp/requirements.txt
 
 # database ins't available during build
 # run any other commands that do not need the database
