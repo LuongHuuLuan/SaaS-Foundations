@@ -37,6 +37,9 @@ WORKDIR /code
 # Copy the requirements file into the container
 COPY requirements.txt /tmp/requirements
 
+# copy the project code into the container's working directory
+COPY ./src /code
+
 # database ins't available during build
 # run any other commands that do not need the database
 # such as:
